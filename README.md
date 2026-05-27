@@ -1,1 +1,1 @@
-# MBTI-chek
+# MBTI-check
