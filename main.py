@@ -1,77 +1,90 @@
 import streamlit as st
 
-# 1. 페이지 기본 설정 (가장 상단에 위치해야 합니다)
+# 1. 페이지 기본 설정
 st.set_page_config(
-    page_title="iOS MBTI Dreamy Pokemon",
-    page_icon="🌸",
+    page_title="iOS Liquid Glass Pokemon",
+    page_icon="🔮",
     layout="centered",
     initial_sidebar_state="collapsed"
 )
 
-# 2. 버그 없는 완벽한 애플 글래스모피즘(Glassmorphism) CSS 정의
+# 2. 초현실적인 애플 리퀴드 글라스(Liquid Glassmorphism) CSS 정의
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
     
-    /* 1. 안전한 메인 배경 구현: 몽환적인 핑크/퍼플 광원이 흐르는 다크 테마 배경 */
+    /* 1. ★ 리퀴드 블루-시안 몽환적 액체 배경 완벽 구현 ★ */
     html, body, [data-testid="stAppViewContainer"] {
         font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Noto Sans KR", sans-serif;
-        background-color: #0b0c16 !important;
+        background-color: #030515 !important;
+        
+        /* 캡처 화면 속 쨍한 네온 블루와 시안(Cyan) 리퀴드 액체 광원 표현 */
         background-image: 
-            radial-gradient(at 15% 20%, rgba(255, 160, 190, 0.22) 0px, transparent 45%),
-            radial-gradient(at 85% 80%, rgba(130, 150, 255, 0.22) 0px, transparent 45%) !important;
+            radial-gradient(at 10% 20%, rgba(13, 61, 251, 0.45) 0px, transparent 50%),
+            radial-gradient(at 90% 10%, rgba(0, 210, 255, 0.45) 0px, transparent 50%),
+            radial-gradient(at 50% 90%, rgba(157, 78, 221, 0.3) 0px, transparent 60%) !important;
         background-attachment: fixed !important;
-        color: #f3f4f6 !important;
+        color: #ffffff !important;
     }
     
-    /* 2. 스트림릿 기본 상단 헤더 투명화 */
     [data-testid="stHeader"] {
         background-color: rgba(0,0,0,0) !important;
     }
     
-    /* 3. 헤더 타이틀 스타일 */
+    /* 2. 스트림릿 레이아웃 안정화 (절대 깨지지 않음) */
+    [data-testid="stAppViewBlockContainer"] {
+        background: transparent !important;
+    }
+    
+    /* 3. 폰트 및 타이틀 디자인 */
     .ios-title {
-        font-weight: 800;
-        font-size: 2.3rem;
+        font-weight: 900;
+        font-size: 2.5rem;
         text-align: center;
-        letter-spacing: -0.05rem;
-        background: linear-gradient(180deg, #ffffff 40%, #ffd1dc 100%);
+        letter-spacing: -0.06rem;
+        background: linear-gradient(180deg, #ffffff 50%, rgba(255, 255, 255, 0.6) 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        margin-bottom: 5px;
+        margin-bottom: 2px;
         margin-top: -20px;
     }
     
     .ios-subtitle {
-        color: rgba(255, 255, 255, 0.6);
+        color: rgba(255, 255, 255, 0.5);
         text-align: center;
         font-size: 0.95rem;
-        font-weight: 400;
-        margin-bottom: 35px;
+        font-weight: 500;
+        letter-spacing: 0.05rem;
+        margin-bottom: 40px;
+        text-transform: uppercase;
     }
     
-    /* 4. ★ 극강의 애플 글래스 디스플레이 (Real Glass Card) ★ */
-    .glass-card {
-        background: rgba(255, 255, 255, 0.06); /* 미세한 하얀 유리 반사 */
-        backdrop-filter: blur(25px) saturate(180%); /* 뒤쪽 배경의 핑크/블루 빛을 몽환적으로 뭉개주는 블러 효과 */
-        -webkit-backdrop-filter: blur(25px) saturate(180%);
-        border-radius: 28px; /* 아이폰 특유의 둥근 모서리 */
+    /* 4. ★ 핵심: 캡처본과 똑같은 두껍고 쨍한 리퀴드 유리 카드 ★ */
+    .liquid-glass-card {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.02) 100%);
         
-        /* 얇고 정교하게 들어가는 빛 반사 유리 테두리 */
-        border: 1px solid rgba(255, 255, 255, 0.18); 
+        /* 캡처 화면 속 초고밀도 블러 및 증폭 필터 */
+        backdrop-filter: blur(45px) saturate(220%); 
+        -webkit-backdrop-filter: blur(45px) saturate(220%);
         
-        padding: 30px;
+        /* 애플 위젯처럼 둥글고 부드러운 모서리 */
+        border-radius: 36px; 
         
-        /* 유리의 두께감과 깊이를 극대화하는 3D 입체 그림자 효과 */
+        /* 리퀴드 글라스의 핵심인 쨍하고 굵은 화이트 하이라이트 아웃라인 */
+        border: 1.5px solid rgba(255, 255, 255, 0.28); 
+        
+        padding: 35px;
+        
+        /* 외부 묵직한 그림자 + 안쪽 유리의 입체감을 살리는 듀얼 내부 그림자(Inset Shadow) */
         box-shadow: 
-            0 20px 40px rgba(0, 0, 0, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            0 40px 80px rgba(0, 4, 30, 0.5), 
+            inset 0 1.5px 1.5px rgba(255, 255, 255, 0.4),
+            inset 0 -1.5px 1.5px rgba(0, 0, 0, 0.2);
             
         margin-top: 10px;
         margin-bottom: 25px;
     }
     
-    /* 카드 콘텐츠 가로 배치 레이아웃 */
     .card-content {
         display: flex;
         flex-direction: row;
@@ -84,19 +97,32 @@ st.markdown("""
         display: flex;
         justify-content: center;
         align-items: center;
+        position: relative;
     }
     
-    /* 포켓몬 이미지 공중에 뜬 듯한 소프트 쉐도우 및 호버 액션 */
+    /* 포켓몬 뒤에 뽀얀 글래스 백그라운드 발광판 추가 */
+    .image-section::before {
+        content: "";
+        position: absolute;
+        width: 160px;
+        height: 160px;
+        background: radial-gradient(circle, rgba(0, 210, 255, 0.3) 0%, transparent 70%);
+        filter: blur(20px);
+        z-index: 1;
+    }
+    
     .image-section img {
         width: 100%;
         max-width: 220px;
         height: auto;
-        filter: drop-shadow(0px 10px 20px rgba(255, 182, 193, 0.25));
-        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        z-index: 2;
+        filter: drop-shadow(0px 15px 30px rgba(0, 210, 255, 0.25));
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
     
     .image-section img:hover {
-        transform: scale(1.08) translateY(-3px);
+        transform: scale(1.08) translateY(-5px);
     }
     
     .info-section {
@@ -106,61 +132,62 @@ st.markdown("""
         justify-content: center;
     }
     
-    /* 텍스트 요소 디테일링 */
+    /* 텍스트 스타일링 */
     .ios-label {
         font-size: 0.8rem;
         font-weight: 700;
-        color: #ffb6c1;
+        color: #00d2ff; /* 캡처 화면의 형광 블루 색상 적용 */
         text-transform: uppercase;
-        letter-spacing: 0.08rem;
+        letter-spacing: 0.1rem;
         margin: 0 0 6px 0;
     }
     
     .pokemon-title {
         font-weight: 800;
-        font-size: 1.8rem;
+        font-size: 1.9rem;
         color: #ffffff;
         margin: 0 0 4px 0;
-        letter-spacing: -0.03rem;
+        letter-spacing: -0.04rem;
     }
     
     .pokemon-type {
-        color: rgba(255, 255, 255, 0.5);
+        color: rgba(255, 255, 255, 0.45);
         font-size: 0.85rem;
         margin: 0 0 15px 0;
     }
     
-    /* 파스텔 유리 감성의 태그 */
+    /* 유리 느낌을 극대화한 알약 태그 */
     .ios-tag-container {
         display: flex;
         gap: 8px;
-        margin-bottom: 18px;
+        margin-bottom: 20px;
         flex-wrap: wrap;
     }
     
     .ios-tag {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 5px 12px;
-        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
+        padding: 6px 14px;
+        border-radius: 14px;
         font-size: 0.75rem;
         font-weight: 600;
-        color: #ffd1dc;
+        color: #ffffff;
     }
     
     .pokemon-desc {
-        font-size: 0.92rem;
-        line-height: 1.6;
+        font-size: 0.95rem;
+        line-height: 1.65;
         color: rgba(255, 255, 255, 0.85);
         margin: 0;
     }
     
-    /* 모바일 기기 반응형 최적화 */
+    /* 모바일 반응형 화면 최적화 */
     @media (max-width: 680px) {
         .card-content {
             flex-direction: column;
             text-align: center;
-            gap: 20px;
+            gap: 25px;
         }
         .info-section {
             align-items: center;
@@ -173,24 +200,26 @@ st.markdown("""
         }
     }
     
-    /* 스트림릿 기본 셀렉트 박스 글래스 테마 매칭 */
+    /* 5. 스트림릿 셀렉트 박스도 캡처본 위젯 느낌으로 완벽화 */
     div[data-baseweb="select"] {
-        background-color: rgba(255, 255, 255, 0.05) !important;
-        border: 1px solid rgba(255, 255, 255, 0.15) !important;
-        border-radius: 14px !important;
-        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.06) !important;
+        border: 1.5px solid rgba(255, 255, 255, 0.2) !important;
+        border-radius: 18px !important;
+        backdrop-filter: blur(20px) saturate(180%) !important;
+        -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15) !important;
     }
     
     label[data-testid="stWidgetLabel"] {
-        color: rgba(255, 255, 255, 0.6) !important;
+        color: rgba(255, 255, 255, 0.5) !important;
         font-size: 0.8rem !important;
-        font-weight: 600 !important;
-        letter-spacing: 0.05rem;
+        font-weight: 700 !important;
+        letter-spacing: 0.08rem;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# 3. 귀여운 포켓몬 엄선 데이터 (100% 동작 보장)
+# 3. 오직 '귀엽고 이쁜' 최고 존엄 포켓몬 데이터 구성
 pokemon_db = {
     "ISTJ": {
         "name": "치라치노 (Cinccino)", "id": 573, "type": "노말",
@@ -275,36 +304,36 @@ pokemon_db = {
 }
 
 # 4. 헤더 렌더링
-st.markdown('<div class="ios-title">✨ SWEET POKÉMON ID</div>', unsafe_allow_html=True)
-st.markdown('<div class="ios-subtitle">My Pastel Dreamy Widget 추천 서비스</div>', unsafe_allow_html=True)
+st.markdown('<div class="ios-title">✦ LIQUID GLASS ID</div>', unsafe_allow_html=True)
+st.markdown('<div class="ios-subtitle">Mbti Sweet Pokemon Widget</div>', unsafe_allow_html=True)
 
 # 5. MBTI 선택 셀렉트 박스
 mbti_list = sorted(list(pokemon_db.keys()))
 selected_mbti = st.selectbox(
-    "당신의 MBTI를 선택해 주세요!", 
+    "CHOOSE YOUR MBTI", 
     mbti_list, 
     index=0
 )
 
-# 6. 결과 출력 (안전한 단일 HTML 구조 카드 렌더링)
+# 6. 결과 출력 (초현실적 반응형 리키드 글래스 디스플레이 렌더링)
 if selected_mbti:
     pokemon = pokemon_db[selected_mbti]
     
-    # 깃허브 공식 고화질 투명 PNG 이미지 사용 (깨질 위험 0%)
+    # 깃허브 오피셜 고화질 투명 PNG 이미지
     img_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{pokemon['id']}.png"
     
     # 태그 생성
     tags_html = "".join([f'<span class="ios-tag">{tag}</span>' for tag in pokemon['tags']])
     
-    # 완벽하게 구조화된 반응형 글래스모피즘 카드
+    # 캡처본 속 고유의 빛 번짐과 입체 유리 각을 그대로 구현한 마크업
     card_html = f"""
-    <div class="glass-card">
+    <div class="liquid-glass-card">
         <div class="card-content">
             <div class="image-section">
                 <img src="{img_url}" alt="{pokemon['name']}" />
             </div>
             <div class="info-section">
-                <p class="ios-label">🌸 SWEET SOUL POKÉMON</p>
+                <p class="ios-label">⚡️ LIQUID GLASS SPEC</p>
                 <h2 class="pokemon-title">{pokemon['name']}</h2>
                 <p class="pokemon-type">타입 : {pokemon['type']}</p>
                 <div class="ios-tag-container">
@@ -319,4 +348,4 @@ if selected_mbti:
     st.markdown(card_html, unsafe_allow_html=True)
 
 # 하단 푸터
-st.markdown("<p style='text-align: center; color: rgba(255, 255, 255, 0.25); font-size: 0.75rem; font-weight: 500; margin-top: 30px;'>Designed by DangGok High School Dev 🌸</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: rgba(255, 255, 255, 0.25); font-size: 0.75rem; font-weight: 500; margin-top: 30px;'>Liquid UI Designed for DangGok High School Dev ✦</p>", unsafe_allow_html=True)
