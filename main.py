@@ -1,6 +1,5 @@
 import streamlit as st
 
-# 1. 페이지 기본 설정
 st.set_page_config(
     page_title="iOS Premium Glass Pokemon",
     page_icon="🔮",
@@ -8,12 +7,11 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# 2. 극강의 리얼 글라스 디스플레이 CSS 엔진
+# 리얼 글래스 CSS
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
     
-    /* 1. 기본 심해 네온 배경 설정 */
     html, body, [data-testid="stAppViewContainer"] {
         font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Noto Sans KR", sans-serif;
         background-color: #030409 !important;
@@ -29,17 +27,6 @@ st.markdown("""
         background-color: rgba(0,0,0,0) !important;
     }
     
-    /* 스트림릿 뼈대 완전 투명화 (유리 블러의 극대화를 위해 필수) */
-    [data-testid="stAppViewBlockContainer"], 
-    [data-testid="stVerticalBlock"], 
-    [data-testid="stMarkdownContainer"],
-    .element-container,
-    div.stHtml {
-        background-color: transparent !important;
-        background: transparent !important;
-    }
-    
-    /* 타이틀 영역 */
     .ios-title {
         font-weight: 900;
         font-size: 2.5rem;
@@ -62,9 +49,6 @@ st.markdown("""
         text-transform: uppercase;
     }
     
-    /* ==========================================
-       ★ 리얼 글라스 3D 레이아웃 컨테이너 ★
-       ========================================== */
     .glass-container {
         position: relative;
         width: 100%;
@@ -72,8 +56,6 @@ st.markdown("""
         margin-bottom: 25px;
     }
     
-    /* [유리 뒤쪽 전용 네온 발광체 1, 2] 
-       유리 카드 바로 뒤에 강렬한 빛을 둠으로써, 유리를 통과해 비치는 뽀얀 굴절 블러를 200% 완성합니다. */
     .glass-glow {
         position: absolute;
         border-radius: 50%;
@@ -97,71 +79,46 @@ st.markdown("""
         right: 10%;
     }
     
-    /* [실제 3D 유리 플레이트] */
     .real-glass-card {
         position: relative;
-        z-index: 2; /* 뒤쪽 발광체 위로 올라옴 */
-        background: rgba(255, 255, 255, 0.05); /* 극소량의 유리 고유 투명도 */
-        backdrop-filter: blur(40px) saturate(230%) !important; /* 초고밀도 유리 굴절 필터 */
-        -webkit-backdrop-filter: blur(40px) saturate(230%) !important;
+        z-index: 2;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(40px) saturate(230%);
+        -webkit-backdrop-filter: blur(40px) saturate(230%);
         border-radius: 32px;
-        overflow: hidden; /* 표면 조명 반사선이 카드 밖으로 나가지 않게 자름 */
+        overflow: hidden;
         padding: 35px;
-        
-        /* 1) 묵직한 유리 그림자 
-           2) 유리 외곽 1.5px 초정밀 아웃라인 하이라이트 
-           3) 상단 20px 미세 베벨 빛 반사(Specular) 
-           4) 하단 안쪽 음영 그림자 처리 */
         box-shadow: 
             0 40px 80px rgba(0, 4, 30, 0.55), 
             inset 0 0 0 1.5px rgba(255, 255, 255, 0.35),
             inset 0 20px 30px rgba(255, 255, 255, 0.18),
             inset 0 -15px 25px rgba(0, 0, 0, 0.35);
-            
         transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
     }
     
     .real-glass-card:hover {
         transform: translateY(-5px);
-        box-shadow: 
-            0 45px 90px rgba(0, 4, 30, 0.65), 
-            inset 0 0 0 1.5px rgba(255, 255, 255, 0.45),
-            inset 0 20px 30px rgba(255, 255, 255, 0.25),
-            inset 0 -15px 25px rgba(0, 0, 0, 0.4);
     }
     
-    /* [유리 전면 스튜디오 조명 반사선]
-       실제 강화유리 액정을 비스듬히 봤을 때 맺히는 밝은 대각선 반사광 */
     .glass-shine {
         position: absolute;
         top: -50%;
         left: -50%;
         width: 200%;
         height: 200%;
-        background: linear-gradient(
-            45deg,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0) 45%,
-            rgba(255, 255, 255, 0.1) 48%,
-            rgba(255, 255, 255, 0.22) 50%,
-            rgba(255, 255, 255, 0.1) 52%,
-            rgba(255, 255, 255, 0) 55%,
-            rgba(255, 255, 255, 0) 100%
-        );
+        background: linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 45%, rgba(255,255,255,0.1) 48%, rgba(255,255,255,0.22) 50%, rgba(255,255,255,0.1) 52%, rgba(255,255,255,0) 55%, rgba(255,255,255,0) 100%);
         pointer-events: none;
         z-index: 3;
         transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
     
-    /* 카드에 마우스 올리면 조명 반사광이 슬며시 이동 (실제 입체 유리 질감 착시 유도) */
     .real-glass-card:hover .glass-shine {
         transform: translate(6%, 6%);
     }
     
-    /* 카드 콘텐츠 레이아웃 */
     .card-content {
         position: relative;
-        z-index: 4; /* 반사광 위에 콘텐츠 배치 */
+        z-index: 4;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -189,11 +146,10 @@ st.markdown("""
         justify-content: center;
     }
     
-    /* 세부 글꼴 디자인 */
     .ios-label {
         font-size: 0.8rem;
         font-weight: 700;
-        color: #00f2fe; /* 형광 유리 블루 */
+        color: #00f2fe;
         text-transform: uppercase;
         letter-spacing: 0.1rem;
         margin: 0 0 6px 0;
@@ -213,7 +169,6 @@ st.markdown("""
         margin: 0 0 15px 0;
     }
     
-    /* 파스텔 유리 뱃지 */
     .ios-tag-container {
         display: flex;
         gap: 8px;
@@ -239,34 +194,20 @@ st.markdown("""
         margin: 0;
     }
     
-    /* 모바일 반응형 화면 최적화 */
     @media (max-width: 680px) {
-        .card-content {
-            flex-direction: column;
-            text-align: center;
-            gap: 25px;
-        }
-        .info-section {
-            align-items: center;
-        }
-        .ios-tag-container {
-            justify-content: center;
-        }
-        .image-section img {
-            max-width: 160px;
-        }
+        .card-content { flex-direction: column; text-align: center; gap: 25px; }
+        .info-section { align-items: center; }
+        .ios-tag-container { justify-content: center; }
+        .image-section img { max-width: 160px; }
     }
     
-    /* 셀렉트 박스 전면 초정밀 글래스화 */
     div[data-baseweb="select"] {
         background: rgba(255, 255, 255, 0.06) !important;
         border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
         border-radius: 18px !important;
         backdrop-filter: blur(20px) saturate(180%) !important;
         -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-        box-shadow: 
-            0 10px 20px rgba(0,0,0,0.2),
-            inset 0 1px 1px rgba(255, 255, 255, 0.2) !important;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255, 255, 255, 0.2) !important;
     }
     
     label[data-testid="stWidgetLabel"] {
@@ -278,7 +219,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# 3. 귀여운 포켓몬 엄선 데이터
+# 포켓몬 데이터
 pokemon_db = {
     "ISTJ": {
         "name": "치라치노 (Cinccino)", "id": 573, "type": "노말",
@@ -362,60 +303,22 @@ pokemon_db = {
     }
 }
 
-# 4. 헤더 렌더링
+# 헤더
 st.markdown('<div class="ios-title">✦ LIQUID GLASS ID</div>', unsafe_allow_html=True)
 st.markdown('<div class="ios-subtitle">Mbti Sweet Pokemon Widget</div>', unsafe_allow_html=True)
 
-# 5. MBTI 선택 셀렉트 박스
+# MBTI 선택
 mbti_list = sorted(list(pokemon_db.keys()))
-selected_mbti = st.selectbox(
-    "CHOOSE YOUR MBTI", 
-    mbti_list, 
-    index=0
-)
+selected_mbti = st.selectbox("CHOOSE YOUR MBTI", mbti_list, index=0)
 
-# 6. 결과 출력 (초현실적인 리얼 3D 글래스 디스플레이 렌더링)
+# 글래스 카드 (한 줄 압축 마크업으로 스트림릿 보안 파서 충돌 100% 방지)
 if selected_mbti:
     pokemon = pokemon_db[selected_mbti]
-    
-    # 깃허브 오피셜 고화질 투명 PNG 이미지
     img_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{pokemon['id']}.png"
-    
-    # 태그 생성
     tags_html = "".join([f'<span class="ios-tag">{tag}</span>' for tag in pokemon['tags']])
     
-    # 완벽한 3D 조명 반사(glass-shine)와 후면 네온 광원을 결합한 마크업 구조
-    card_html = f"""
-    <div class="glass-container">
-        <!-- 1. 유리 뒷면을 실시간으로 투과하는 형광 네온 구체들 -->
-        <div class="glass-glow glow-cyan"></div>
-        <div class="glass-glow glow-pink"></div>
-        
-        <!-- 2. 실제 빛 반사각이 깎여 있는 3D 유리 카드 플레이트 -->
-        <div class="real-glass-card">
-            <!-- 3. 유리 표면 스튜디오 하이라이트 광택선 -->
-            <div class="glass-shine"></div>
-            
-            <!-- 4. 카드 내용 -->
-            <div class="card-content">
-                <div class="image-section">
-                    <img src="{img_url}" alt="{pokemon['name']}" />
-                </div>
-                <div class="info-section">
-                    <p class="ios-label">⚡️ GLASS SPECIFICATION</p>
-                    <h2 class="pokemon-title">{pokemon['name']}</h2>
-                    <p class="pokemon-type">타입 : {pokemon['type']}</p>
-                    <div class="ios-tag-container">
-                        {tags_html}
-                    </div>
-                    <p class="pokemon-desc">{pokemon['desc']}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    """
+    card_html = f'<div class="glass-container"><div class="glass-glow glow-cyan"></div><div class="glass-glow glow-pink"></div><div class="real-glass-card"><div class="glass-shine"></div><div class="card-content"><div class="image-section"><img src="{img_url}" alt="{pokemon["name"]}" /></div><div class="info-section"><p class="ios-label">⚡ GLASS SPECIFICATION</p><h2 class="pokemon-title">{pokemon["name"]}</h2><p class="pokemon-type">타입 : {pokemon["type"]}</p><div class="ios-tag-container">{tags_html}</div><p class="pokemon-desc">{pokemon["desc"]}</p></div></div></div></div>'
     
     st.markdown(card_html, unsafe_allow_html=True)
 
-# 하단 푸터
 st.markdown("<p style='text-align: center; color: rgba(255, 255, 255, 0.25); font-size: 0.75rem; font-weight: 500; margin-top: 30px;'>Liquid UI Designed for DangGok High School Dev ✦</p>", unsafe_allow_html=True)
