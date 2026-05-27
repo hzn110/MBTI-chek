@@ -8,26 +8,76 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# 2. 파스텔 톤 애플 글래스 UI (Glassmorphism) CSS 정의
+# 2. 리얼 애플 글래스모피즘(Glassmorphism) CSS 정의
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
     
-    /* 몽환적이고 사랑스러운 핑크-퍼플 계열의 iOS 그라데이션 배경 */
+    /* 1. 기본 배경 및 폰트 설정 */
     html, body, [data-testid="stAppViewContainer"] {
         font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Noto Sans KR", sans-serif;
-        background: radial-gradient(circle at 10% 20%, rgba(255, 182, 193, 0.45) 0%, transparent 50%),
-                    radial-gradient(circle at 90% 80%, rgba(165, 180, 252, 0.45) 0%, transparent 50%),
-                    #0a0b16;
-        background-attachment: fixed;
-        color: #f3f4f6;
+        background-color: #060713 !important; /* 베이스가 되는 깊은 심해색 */
+        overflow-x: hidden;
+        position: relative;
     }
     
+    /* 2. 스트림릿 기본 상단 헤더 투명화 */
     [data-testid="stHeader"] {
-        background-color: rgba(0,0,0,0);
+        background-color: rgba(0,0,0,0) !important;
     }
     
-    /* 헤더 타이틀 */
+    /* 3. ★ 핵심 ★ 스트림릿 기본 레이아웃 박스들의 투명도를 100%로 강제 (유리 블러가 작동하는 핵심 열쇠!) */
+    [data-testid="stAppViewBlockContainer"], 
+    [data-testid="stVerticalBlock"], 
+    [data-testid="stMarkdownContainer"],
+    .element-container {
+        background-color: transparent !important;
+        background: transparent !important;
+    }
+    
+    /* 4. ★ 초강력 효과 ★ 카드 뒤에서 둥둥 떠다니는 입체적인 오로라 광원 애니메이션 */
+    @keyframes float1 {
+        0% { transform: translate(0px, 0px) scale(1); }
+        50% { transform: translate(60px, -80px) scale(1.3); }
+        100% { transform: translate(0px, 0px) scale(1); }
+    }
+    @keyframes float2 {
+        0% { transform: translate(0px, 0px) scale(1.2); }
+        50% { transform: translate(-80px, 50px) scale(0.8); }
+        100% { transform: translate(0px, 0px) scale(1.2); }
+    }
+    
+    /* 배경 왼쪽 위 핑크색 광원 구체 */
+    [data-testid="stAppViewContainer"]::before {
+        content: "";
+        position: absolute;
+        width: 450px;
+        height: 450px;
+        top: 10%;
+        left: -5%;
+        background: radial-gradient(circle, rgba(255, 130, 170, 0.45) 0%, rgba(255, 130, 170, 0) 70%);
+        filter: blur(80px);
+        z-index: 0;
+        animation: float1 16s infinite ease-in-out;
+        pointer-events: none;
+    }
+    
+    /* 배경 오른쪽 아래 블루/퍼플 광원 구체 */
+    [data-testid="stAppViewContainer"]::after {
+        content: "";
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        bottom: 10%;
+        right: -5%;
+        background: radial-gradient(circle, rgba(110, 120, 255, 0.45) 0%, rgba(110, 120, 255, 0) 70%);
+        filter: blur(90px);
+        z-index: 0;
+        animation: float2 20s infinite ease-in-out;
+        pointer-events: none;
+    }
+
+    /* 5. 헤더 타이틀 */
     .ios-title {
         font-weight: 800;
         font-size: 2.3rem;
@@ -37,7 +87,8 @@ st.markdown("""
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-bottom: 5px;
-        margin-top: -20px;
+        position: relative;
+        z-index: 2;
     }
     
     .ios-subtitle {
@@ -46,19 +97,32 @@ st.markdown("""
         font-size: 0.95rem;
         font-weight: 400;
         margin-bottom: 35px;
+        position: relative;
+        z-index: 2;
     }
     
-    /* 얇은 빛 반사 테두리와 소프트 블러를 강화한 유리 카드 효과 */
+    /* 6. ★ 완벽한 리얼 유리 디스플레이 (Glassmorphism Card) ★ */
     .glass-card {
-        background: rgba(255, 255, 255, 0.06);
-        backdrop-filter: blur(30px) saturate(210%);
-        -webkit-backdrop-filter: blur(30px) saturate(210%);
-        border-radius: 28px;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        padding: 30px;
-        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 100%);
+        backdrop-filter: blur(35px) saturate(220%); /* 강력한 블러와 채도 증가로 유리의 묵직함 연출 */
+        -webkit-backdrop-filter: blur(35px) saturate(220%);
+        border-radius: 32px;
+        
+        /* 얇고 정교한 유리 빛 반사 테두리 (border) */
+        border: 1px solid rgba(255, 255, 255, 0.22); 
+        
+        padding: 35px;
+        
+        /* 외부 그림자와 안쪽으로 맺히는 하이라이트(inset shadow)를 동시에 주어 완벽한 3D 입체 유리 질감 표현 */
+        box-shadow: 
+            0 30px 60px rgba(0, 0, 0, 0.4), 
+            inset 0 1px 0 rgba(255, 255, 255, 0.35), 
+            inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+            
         margin-top: 10px;
         margin-bottom: 25px;
+        position: relative;
+        z-index: 2; /* 카드 콘텐츠가 오로라 광원보다 위로 오도록 설정 */
     }
     
     /* 카드 가로 배치 레이아웃 */
@@ -76,7 +140,7 @@ st.markdown("""
         align-items: center;
     }
     
-    /* 포켓몬 이미지 공중에 뜬 듯 부드러운 그림자 효과 */
+    /* 포켓몬 이미지 공중에 뜬 듯 부드러운 하이라이트 그림자 효과 */
     .image-section img {
         width: 100%;
         max-width: 220px;
@@ -163,12 +227,13 @@ st.markdown("""
         }
     }
     
-    /* 스트림릿 셀렉트 박스 커스텀 */
+    /* 스트림릿 셀렉트 박스 글래스모피즘 적용 */
     div[data-baseweb="select"] {
         background-color: rgba(255, 255, 255, 0.05) !important;
         border: 1px solid rgba(255, 255, 255, 0.15) !important;
         border-radius: 14px !important;
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(15px) !important;
+        -webkit-backdrop-filter: blur(15px) !important;
     }
     
     label[data-testid="stWidgetLabel"] {
@@ -264,7 +329,7 @@ pokemon_db = {
     }
 }
 
-# 4. 헤더 렌더링 (파스텔 & 펄 감성)
+# 4. 헤더 렌더링
 st.markdown('<div class="ios-title">✨ SWEET POKÉMON ID</div>', unsafe_allow_html=True)
 st.markdown('<div class="ios-subtitle">My Pastel Dreamy Widget 추천 서비스</div>', unsafe_allow_html=True)
 
@@ -276,7 +341,7 @@ selected_mbti = st.selectbox(
     index=0
 )
 
-# 6. 결과 출력 (애플 유리 가두리 박스 렌더링)
+# 6. 결과 출력 (반응형 유리 가두리 박스 렌더링)
 if selected_mbti:
     pokemon = pokemon_db[selected_mbti]
     
@@ -286,7 +351,7 @@ if selected_mbti:
     # 태그를 둥글고 러블리한 알약 형태로 렌더링
     tags_html = "".join([f'<span class="ios-tag">{tag}</span>' for tag in pokemon['tags']])
     
-    # 글래스 효과 마크업 조립
+    # 완벽한 3D 하이라이팅 글래스 효과 마크업 조립
     card_html = f"""
     <div class="glass-card">
         <div class="card-content">
@@ -308,5 +373,5 @@ if selected_mbti:
     
     st.markdown(card_html, unsafe_allow_html=True)
 
-# 하단 푸터
-st.markdown("<p style='text-align: center; color: rgba(255, 255, 255, 0.2); font-size: 0.75rem; font-weight: 500; margin-top: 30px;'>Designed by DangGok High School Dev 🌸</p>", unsafe_allow_html=True)
+# 하단 푸터 (떠다니는 배경 위에 보일 수 있게 z-index 확보)
+st.markdown("<p style='text-align: center; color: rgba(255, 255, 255, 0.25); font-size: 0.75rem; font-weight: 500; margin-top: 30px; position: relative; z-index: 2;'>Designed by DangGok High School Dev 🌸</p>", unsafe_allow_html=True)
